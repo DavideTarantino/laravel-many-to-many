@@ -69,6 +69,30 @@
             </div>
 
             <div class="mb-3">
+                <label for="tecnologies" class="form-label">Select Tecnology</label>
+
+                <select
+                    multiple
+
+                    class="form-select form-select-lg"
+                    name="tecnologies[]"
+                    id="tecnologies"
+                >
+                    <option value="">Select one</option>
+
+                    @forelse ($tecnologies as $item)
+
+                        <option value="{{ $item->id }}">{{ $item->name }}</option>
+                    @empty
+
+                        <option value="">Non e stata dichiarata la tecnologia utilizzata</option>
+
+                    @endforelse
+
+                </select>
+            </div>
+
+            <div class="mb-3">
                 <label for="creation_date" class="form-label">Creation Date</label>
                 <input
                     type="date"
