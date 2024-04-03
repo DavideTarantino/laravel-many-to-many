@@ -52,6 +52,10 @@ class ProjectController extends Controller
 
         $new_project = Project::create( $val_data );
 
+        if( $request->has('tecnologies')){
+            $new_project->tecnologies()->attach( $request->tecnologies );
+        }
+
         return redirect()->route('dashboard.projects.index');
     }
 
@@ -70,7 +74,9 @@ class ProjectController extends Controller
     {
         $types = Type::all();
 
-        return view('pages.edit', compact('project', 'types'));
+        $tecnologies = Tecnology::all();
+
+        return view('pages.edit', compact('project', 'types', 'tecnologies'));
     }
 
     /**
@@ -96,6 +102,10 @@ class ProjectController extends Controller
 
         $project->update( $val_data );
 
+        if( $request->has('tecnologies')){
+            $new_project->tecnologies()->sync( $request->tecnologies );
+        }
+
         return redirect()->route('dashboard.projects.index');
     }
 
@@ -104,6 +114,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+
+        $project->tecnologies()->sync([]);
+
         if( $project->cover_image ){
             Storage::delete($project->cover_image);
         };
