@@ -106,7 +106,7 @@ class ProjectController extends Controller
         $project->update( $val_data );
 
         if( $request->has('tecnologies')){
-            $new_project->tecnologies()->sync( $request->tecnologies );
+            $project->tecnologies()->sync( $request->tecnologies );
         }
 
         return redirect()->route('dashboard.projects.index');
