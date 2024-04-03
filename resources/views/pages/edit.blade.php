@@ -76,6 +76,49 @@
                 </select>
             </div>
 
+            <div class="mb-3">
+                <label for="tecnologies" class="form-label">Select Tecnology</label>
+
+                <select
+                    multiple
+
+                    class="form-select form-select-lg"
+                    name="tecnologies[]"
+                    id="tecnologies"
+                >
+                    <option value="">Select one</option>
+
+                    @forelse ($tecnologies as $item)
+
+                        {{-- controllo di validazione --}}
+
+                        @if ( $errors->any() )
+                            <option
+                                value="{{ $item->id }}"
+                                {{ in_array($item->id, old( 'tecnologies', [] )) ? 'selected' : '' }}
+                                >
+                                {{ $item->name }}
+                            </option>
+
+                            @else
+
+                            <option
+                                value="{{ $item->id }}"
+                                {{ $project->tecnologies->contains( $item->id ) ? 'selected' : '' }}
+                                >
+                                {{$item->name}}
+                            </option>
+
+                        @endif
+                    @empty
+
+                        <option value="">Non sono state dichiarate tecnologie</option>
+
+                    @endforelse
+
+                </select>
+            </div>
+
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
 
